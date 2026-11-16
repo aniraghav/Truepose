@@ -1,0 +1,8 @@
+node_modules
+.next
+out
+dist
+tsconfig.tsbuildinfo
+# Reference material and source files kept out of the public repo
+Inspirations/
+Images/
