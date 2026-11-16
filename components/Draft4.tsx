@@ -33,11 +33,14 @@ function useOnScreen(ref: RefObject<Element>, initial: boolean, threshold = 0) {
   return on;
 }
 
-/* ---------- Loader: a bracketed counter on a green screen that lifts away ---------- */
+/* ---------- Loader: the Truepose "T" mark (logo 2) in dark grey on the brand green.
+   A faint mark fills solid from the bottom up with the progress, settles, then the panel lifts away. ---------- */
 const SEEN_KEY = "tp-intro-seen-d4";
 function PreloaderD4({ onReveal }: { onReveal: () => void }) {
   const root = useRef<HTMLDivElement>(null);
   const num = useRef<HTMLElement>(null);
+  const fill = useRef<HTMLElement>(null);
+  const bar = useRef<HTMLElement>(null);
   const [gone, setGone] = useState(false);
   const lenis = useLenis();
 
@@ -56,12 +59,20 @@ function PreloaderD4({ onReveal }: { onReveal: () => void }) {
       return;
     }
     const c = { v: 0 };
+    const paint = () => {
+      const v = c.v;
+      if (num.current) num.current.textContent = String(Math.round(v));
+      if (fill.current) fill.current.style.clipPath = `inset(${100 - v}% 0 0 0)`;
+      if (bar.current) bar.current.style.transform = `scaleX(${v / 100})`;
+    };
     const tl = gsap.timeline();
-    tl.from(".d4pl__n", { yPercent: 40, autoAlpha: 0, duration: 0.5, ease: "power3.out" }, 0)
-      .to(c, { v: 100, duration: 1.6, ease: "power2.inOut", onUpdate: () => { if (num.current) num.current.textContent = String(Math.round(c.v)); } }, 0.1)
-      .to(".d4pl__n", { yPercent: -60, autoAlpha: 0, duration: 0.45, ease: "power3.in" }, 1.8)
-      .add(() => onReveal(), 2.05)
-      .to(el, { yPercent: -100, duration: 0.9, ease: "power4.inOut" }, 1.95)
+    tl.from(".d4pl__mark", { y: 14, autoAlpha: 0, duration: 0.8, ease: "power3.out" }, 0)
+      .from(".d4pl__meta", { autoAlpha: 0, duration: 0.5, ease: "power2.out" }, 0.25)
+      .to(c, { v: 100, duration: 1.8, ease: "power2.inOut", onUpdate: paint }, 0.2)
+      .to(".d4pl__meta", { autoAlpha: 0, duration: 0.35, ease: "power2.in" }, 2.05)
+      .to(".d4pl__mark", { scale: 0.9, autoAlpha: 0, duration: 0.55, ease: "power3.in" }, 2.15)
+      .add(() => onReveal(), 2.45)
+      .to(el, { yPercent: -100, duration: 0.95, ease: "power4.inOut" }, 2.35)
       .add(() => { try { sessionStorage.setItem(SEEN_KEY, "1"); } catch { /* ignore */ } finish(); });
     return () => { tl.kill(); };
   }, [onReveal]);
@@ -69,8 +80,16 @@ function PreloaderD4({ onReveal }: { onReveal: () => void }) {
   if (gone) return null;
   return (
     <div className="preloader d4pl" ref={root} aria-hidden="true">
-      <span className="d4pl__n">[<b ref={num}>0</b>]</span>
-      <span className="d4pl__brand">Truepose</span>
+      <div className="d4pl__stage">
+        <div className="d4pl__mark">
+          <i className="d4pl__ghost" />
+          <i className="d4pl__fill" ref={fill} />
+        </div>
+        <div className="d4pl__meta">
+          <span className="d4pl__bar"><i ref={bar} /></span>
+          <span className="d4pl__pct"><b ref={num}>0</b>%</span>
+        </div>
+      </div>
     </div>
   );
 }

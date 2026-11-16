@@ -528,13 +528,22 @@ html.is-loading, html.is-loading body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .phero__sweep, .d4tick__row { animation: none !important; } }
 
 /* Loader */
-.d4pl { display: grid; place-items: center; background: var(--neon); color: var(--neon-ink); }
-.d4pl__n {
-  font: 600 clamp(6rem, 24vw, 19rem)/.8 var(--font-display), sans-serif; font-variation-settings: "wdth" 62;
-  letter-spacing: -.02em; font-variant-numeric: tabular-nums; text-transform: none;
+/* The mark is drawn with the logo as a CSS mask, so it can be any colour: here one solid dark grey */
+.d4pl { --pl-ink: #1f2321; display: grid; place-items: center; background: var(--neon); color: var(--pl-ink); }
+.d4pl__stage { display: grid; justify-items: center; gap: clamp(28px, 5vh, 44px); }
+.d4pl__mark { position: relative; width: clamp(88px, 13vw, 132px); aspect-ratio: 194 / 160; }
+.d4pl__ghost, .d4pl__fill {
+  position: absolute; inset: 0; background: var(--pl-ink);
+  -webkit-mask: url(/assets/logo-mark-light.png) center / contain no-repeat;
+  mask: url(/assets/logo-mark-light.png) center / contain no-repeat;
 }
-.d4pl__n b { font-weight: inherit; display: inline-block; min-width: 1.6ch; text-align: center; }
-.d4pl__brand { position: absolute; left: max(var(--gutter), env(safe-area-inset-left, 0px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); font: 600 .8rem/1 var(--font-hud); letter-spacing: .14em; }
+.d4pl__ghost { opacity: .14; }
+.d4pl__fill { clip-path: inset(100% 0 0 0); }
+.d4pl__meta { display: grid; justify-items: center; gap: 12px; }
+.d4pl__bar { position: relative; display: block; width: 120px; height: 1.5px; background: rgba(31, 35, 33, .18); overflow: hidden; }
+.d4pl__bar i { position: absolute; inset: 0; background: var(--pl-ink); transform: scaleX(0); transform-origin: 0 50%; }
+.d4pl__pct { font: 500 .75rem/1 var(--font-hud); letter-spacing: .18em; font-variant-numeric: tabular-nums; }
+.d4pl__pct b { font-weight: inherit; display: inline-block; min-width: 3ch; text-align: right; }
 
 /* Header: transparent bar, centred pill nav, bracket text CTA */
 .page-draft4 .header__bar { position: relative; background: transparent; border-color: transparent; box-shadow: none; transition: background-color .3s, border-color .3s; }
