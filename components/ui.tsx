@@ -1,7 +1,7 @@
 import type { ReactNode, MouseEvent } from "react";
 import type { IconName } from "@/lib/content";
 
-/* Client logo (Inspirations/logo). Each file comes in two tones:
+/* Client logo. Each file comes in two tones:
    light = original white + green (for dark backgrounds), dark = ink + green (for light backgrounds). */
 
 /* The "T" mark on its own */
@@ -53,7 +53,7 @@ type CTAProps = {
   onClick?: (e: MouseEvent<HTMLElement>) => void;
 };
 
-/* Pill button with arrow disc (from the Framer reference) */
+/* Button with an arrow disc */
 export function CTA({ href = "#book", children, className = "", type, block, tabIndex, onClick }: CTAProps) {
   const cls = `btn ${block ? "btn--block" : ""} ${className}`.trim();
   const inner = (

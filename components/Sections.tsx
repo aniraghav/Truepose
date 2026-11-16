@@ -58,7 +58,7 @@ export function Report() {
   );
 }
 
-/* ---------- Sample member report (content from the client's sample report PDF) ---------- */
+/* ---------- Sample member report ---------- */
 type Bars = { max: number; band?: number[]; avg?: number; vals: { k: string; v: number; flag?: boolean }[] };
 type Move = { name: string; status: string; tone: "ok" | "work" | "grow"; value: string; note: string; bars: Bars };
 
@@ -94,7 +94,7 @@ function SampleReport() {
         {/* Header */}
         <div className="sr__head">
           <div>
-            <span className="sr__tag">{s.tag} <b>· {s.tagNote}</b></span>
+            <span className="sr__tag">{s.tag}</span>
             <h3 className="sr__hello">{s.greeting} <em>{s.greetingHl}</em></h3>
             <p className="sr__sub">{s.sub}</p>
           </div>
@@ -176,7 +176,6 @@ function SampleReport() {
             </div>
           </div>
         </div>
-        <p className="sr__footnote">{s.footnote}</p>
       </motion.div>
     </div>
   );

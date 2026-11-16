@@ -62,10 +62,9 @@ export const copy = {
     lead: "One page.",
     text: "What's fine, what to work on, where to start.",
     labels: ["What's fine", "What to work on", "Where to start"] as const,
-    /* Sample member report, taken from the client's Truepose_Sample_Report.pdf (made up member). */
+    /* Sample member report */
     sample: {
       tag: "Sample report",
-      tagNote: "Not a real member",
       greeting: "Hi Priya, here's your",
       greetingHl: "starting point.",
       sub: "Whatever your goal, get strong on the way there.",
@@ -164,7 +163,6 @@ export const copy = {
       retestLabel: "Your retest",
       retestDate: "14 Dec 2026",
       retestText: "We'll repeat the check and show you what improved.",
-      footnote: "Sample report with made up details.",
     },
   },
 

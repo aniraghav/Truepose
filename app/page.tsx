@@ -1,5 +1,5 @@
-import SiteDraft4 from "@/components/Draft4";
+import Site from "@/components/Site";
 
 export default function Page() {
-  return <SiteDraft4 />;
+  return <Site />;
 }

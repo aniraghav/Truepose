@@ -171,7 +171,7 @@ export default function HowItWorks() {
               </defs>
               <line x1="-60" x2="260" y1="410" y2="410" className="scan__floor" />
               <line x1="100" x2="100" y1="0" y2="410" className="scan__axis" />
-              {/* Height ruler (Draft 2 HUD detail) */}
+              {/* Height ruler beside the figure */}
               <g className="ruler">
                 <line x1="-72" x2="-72" y1="10" y2="410" />
                 {Array.from({ length: 21 }, (_, i) => {

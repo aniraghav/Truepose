@@ -80,7 +80,7 @@ export function Figure({ id = "fig", className = "fig" }: { id?: string; classNa
           <stop offset="0" style={{ stopColor: "var(--fig-rim-a)" }} />
           <stop offset="1" style={{ stopColor: "var(--fig-rim-b)" }} />
         </linearGradient>
-        {/* Fine horizontal measurement lines inside the body (HUD texture, Draft 2) */}
+        {/* Fine horizontal measurement lines inside the body */}
         <pattern id={`${id}-lines`} width="4" height="4" patternUnits="userSpaceOnUse">
           <rect width="4" height="0.8" style={{ fill: "var(--fig-line)" }} />
         </pattern>

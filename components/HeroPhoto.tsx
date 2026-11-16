@@ -6,10 +6,10 @@ import { copy } from "@/lib/content";
 import { useIntro } from "./Intro";
 import { CTA, Icon } from "./ui";
 
-/* Shared hero for Drafts 2, 3 and 4: headline, line, actions and facts on the left,
-   the client supplied photo (Images/Truepose Hero.webp) on the right.
-   Desktop: the photo fills the hero behind the text (its subject sits on the right half).
-   Mobile: the photo stacks under the text. Each draft restyles it through its own tokens. */
+/* Hero: headline, line, actions and facts on the left,
+   the client supplied runner photo on the right, on a backdrop matched to the photo.
+   Desktop: the photo sits in the right two thirds, running toward the headline.
+   Mobile: the photo stacks under the text. */
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
