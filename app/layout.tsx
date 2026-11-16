@@ -1,12 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-/* Archivo with its width axis: set very condensed for the big display type */
-const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-display", display: "swap" });
-const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
-/* Utility face for HUD details: loader labels, counter, clock, coordinates */
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
+/* Fonts are bundled in app/fonts (Latin subsets from Fontsource 5.3.0, SIL Open Font License) instead of
+   next/font/google, so builds never depend on downloading from Google Fonts at build time. */
+
+/* Archivo variable (weight + width axes): set very condensed for the big display type */
+const display = localFont({
+  src: "./fonts/archivo-wdth.woff2",
+  weight: "100 900",
+  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
+  variable: "--font-display",
+  display: "swap",
+});
+const body = localFont({ src: "./fonts/inter-wght.woff2", weight: "100 900", variable: "--font-body", display: "swap" });
+/* Utility face for small labels: loader, counters, figure readings */
+const mono = localFont({
+  src: [
+    { path: "./fonts/jetbrains-mono-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/jetbrains-mono-500.woff2", weight: "500", style: "normal" },
+  ],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 const SITE = "https://truepose.ai"; // update if the domain changes
 

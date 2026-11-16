@@ -516,8 +516,9 @@ html.is-loading, html.is-loading body { overflow: hidden; }
   /* Greys lean very slightly green so they sit with the accent */
   --bg: #121412; --bg-alt: #181b19; --surface: #212522; --surface-2: #2b302c; --line: #2e3430;
   --text: #f1f4ee; --muted: #a8b0a9; --dim: #8a938b; --faint: #5c655e;
-  --neon: #c6ff6b; --neon-hover: #d8ff99; --neon-deep: #3f7d12; --neon-ink: #11140f;
-  --scan: #d2ff8c;
+  /* Brand green #4DFF4D (matches the logo). Hover is a lighter tint; deep is a darker shade for light surfaces. */
+  --neon: #4dff4d; --neon-hover: #85ff85; --neon-deep: #1c8a1c; --neon-ink: #0e120e;
+  --scan: #4dff4d;
   --paper: #eef2e7; --paper-ink: #121510; --paper-line: #d3dac8; --error: #ffa08f;
   --fig-light: #2c332d; --fig-dark: #111411;
 }
