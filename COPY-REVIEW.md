@@ -18,7 +18,6 @@ To preview the page with **only your original text**, open it with `?copy=client
 | Loading screen | Loading · truepose.ai · ( 0 to 100% ) | Labels on the intro animation, first visit only |
 | How it works figure (illustration) | L 168° · R 164° and similar angle tags | Illustrative readings on the drawn figure, not real data |
 | Draft 3 hero, floating cards | Shoulders · Hips · L 168° R 164° · R 31° | Illustrative readings beside the figure (Draft 3 only) |
-| "What your member gets", metrics panel | Sample report · Change since last check · Body fat ratio 21.8% · BMI 23.4 · Muscle rate 42.6% · Body water 55.1% · Bone mass 2.9 kg · BMR 1,612 kcal · Visceral fat 8 | Dummy data showing the monitored metrics. Needs client sign off that Truepose reports these (the brief only names flexibility and mobility) |
 | Draft 4, number band | 3 steps · 1 page · 4 weeks to a retest · 3 members free | Facts already in the brief, repeated as a moving band (Draft 4 only) |
 | Draft 4, buttons and footer | [+] after "Book a free assessment" and on FAQ rows; "Back to top" (screen reader label) | Visual marks and an accessibility label (Draft 4 only) |
 | Hero frame, top right (desktop) | Bengaluru 16:12:00 (live clock) | Local, "live system" feel; anchors the pilot city |

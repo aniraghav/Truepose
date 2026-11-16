@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -53,56 +53,131 @@ export function Report() {
           </div>
         </motion.figure>
       </div>
-      <Metrics />
+      <SampleReport />
     </section>
   );
 }
 
-/* ---------- Monitored metrics (sample data) ---------- */
-type Metric = (typeof copy.report.metrics)[number];
-const pct = (m: Metric, v: number) => ((v - m.min) / (m.max - m.min)) * 100;
+/* ---------- Sample member report (content from the client's sample report PDF) ---------- */
+type Bars = { max: number; band?: number[]; avg?: number; vals: { k: string; v: number; flag?: boolean }[] };
+type Move = { name: string; status: string; tone: "ok" | "work" | "grow"; value: string; note: string; bars: Bars };
 
-function Trend({ pts }: { pts: readonly number[] }) {
-  const lo = Math.min(...pts), hi = Math.max(...pts), w = 120, h = 36;
-  const d = pts.map((v, i) => `${i ? "L" : "M"}${(i / (pts.length - 1)) * w} ${h - 4 - ((v - lo) / (hi - lo || 1)) * (h - 8)}`).join(" ");
+function MoveBars({ b }: { b: Bars }) {
+  const p = (v: number) => `${Math.min(100, (v / b.max) * 100)}%`;
   return (
-    <svg viewBox={`-4 0 ${w + 8} ${h}`} className="mx__trend" aria-hidden="true">
-      <motion.path d={d} initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease }} />
-      {pts.map((v, i) => <circle key={i} cx={(i / (pts.length - 1)) * w} cy={h - 4 - ((v - lo) / (hi - lo || 1)) * (h - 8)} r={i === pts.length - 1 ? 3.5 : 2} />)}
-    </svg>
+    <div className="sr-bars" aria-hidden="true">
+      {b.vals.map((x, i) => (
+        <div className="sr-bars__row" key={x.k}>
+          <span className="sr-bars__k">{x.k}</span>
+          <span className="sr-bars__track">
+            {b.band && <i className="sr-bars__band" style={{ left: p(b.band[0] ?? 0), width: `calc(${p(b.band[1] ?? 0)} - ${p(b.band[0] ?? 0)})` }} />}
+            {b.avg !== undefined && <i className="sr-bars__avg" style={{ left: p(b.avg) }} />}
+            <motion.i className={`sr-bars__fill ${x.flag ? "is-flag" : ""}`} style={{ originX: 0 }}
+              initial={{ scaleX: 0 }} whileInView={{ scaleX: x.v / b.max }} viewport={{ once: true, amount: 0.8 }}
+              transition={{ duration: 1, ease, delay: 0.1 * i }} />
+          </span>
+        </div>
+      ))}
+    </div>
   );
 }
 
-function Metrics() {
-  const r = copy.report;
-  const arrow = { up: "▲", down: "▼", same: "●" } as const;
+function SampleReport() {
+  const s = copy.report.sample;
+  const moves = s.moves as unknown as Move[];
+  const [day, setDay] = useState(0);
+  const rise = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.2 }, transition: { duration: 0.7, ease } };
+
   return (
-    <div className="wrap mx" data-extra>
-      <div className="mx__head">
-        <span className="mx__tag">{r.metricsTag}</span>
-        <span className="mx__note"><i aria-hidden="true">▲▼</i> {r.metricsNote}</span>
-      </div>
-      <ul className="mx__grid">
-        {r.metrics.map((m, i) => {
-          const trend = "trend" in m ? m.trend : undefined;
-          const change = m.dir === "same" ? "No change" : `${arrow[m.dir]} ${m.delta}`;
-          return (
-            <li key={m.name} className={`mx__cell ${i === 0 ? "mx__cell--lead" : ""}`}>
-              <p className="mx__name">{m.name}</p>
-              <p className="mx__val">{m.value}<span className="mx__unit">{m.unit}</span></p>
-              <p className={`mx__delta mx__delta--${m.dir}`}>
-                <span className="sr-only">Change since last check: </span>{change}
-              </p>
-              {trend && <Trend pts={trend} />}
-              <div className="mx__bar" aria-hidden="true">
-                <span className="mx__band" style={{ left: `${pct(m, m.lo)}%`, width: `${pct(m, m.hi) - pct(m, m.lo)}%` }} />
-                <motion.span className="mx__pin" initial={{ left: "0%", opacity: 0 }} whileInView={{ left: `${pct(m, m.at)}%`, opacity: 1 }}
-                  viewport={{ once: true, amount: 0.8 }} transition={{ duration: 1, ease, delay: 0.05 * i }} />
+    <div className="wrap sr">
+      <motion.div className="sr__card" {...rise}>
+        {/* Header */}
+        <div className="sr__head">
+          <div>
+            <span className="sr__tag">{s.tag} <b>· {s.tagNote}</b></span>
+            <h3 className="sr__hello">{s.greeting} <em>{s.greetingHl}</em></h3>
+            <p className="sr__sub">{s.sub}</p>
+          </div>
+          <ul className="sr__meta">{s.meta.map((m) => <li key={m}>{m}</li>)}</ul>
+        </div>
+
+        {/* Plan at a glance */}
+        <h4 className="sr__h">{s.glanceTitle}</h4>
+        <ul className="sr__glance">
+          {s.glance.map((g) => <li key={g.k}><span>{g.k}</span><strong>{g.v}</strong></li>)}
+        </ul>
+
+        {/* How you move */}
+        <h4 className="sr__h">{s.moveTitle}</h4>
+        <ul className="sr__moves">
+          {moves.map((m) => (
+            <li key={m.name} className="sr-move">
+              <div className="sr-move__top">
+                <p className="sr-move__name">{m.name}</p>
+                <span className={`sr-chip sr-chip--${m.tone}`}>{m.status}</span>
               </div>
+              <p className="sr-move__val">{m.value}</p>
+              <MoveBars b={m.bars} />
+              <p className="sr-move__note">{m.note}</p>
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
+
+        {/* Where to start / Why this plan */}
+        <div className="sr__band">
+          <div>
+            <h4 className="sr__h sr__h--inv">{s.startTitle}</h4>
+            <ul className="sr__list">{s.start.map((x) => <li key={x.b}><b>{x.b}</b> {x.t}</li>)}</ul>
+          </div>
+          <div>
+            <h4 className="sr__h sr__h--inv">{s.whyTitle}</h4>
+            <ul className="sr__list">{s.why.map((x) => <li key={x}>{x}</li>)}</ul>
+          </div>
+        </div>
+
+        {/* Your week: three columns on desktop, tabs on mobile */}
+        <h4 className="sr__h">{s.weekTitle}</h4>
+        <div className="sr__tabs" role="tablist" aria-label={s.weekTitle}>
+          {s.days.map((d, i) => (
+            <button key={d.d} type="button" role="tab" aria-selected={day === i} className={day === i ? "is-on" : ""} onClick={() => setDay(i)}>
+              {d.d}<span>{d.w}</span>
+            </button>
+          ))}
+        </div>
+        <div className="sr__week">
+          {s.days.map((d, i) => (
+            <div key={d.d} className={`sr-day ${day === i ? "is-on" : ""}`} role="tabpanel">
+              <p className="sr-day__head"><strong>{d.d}</strong><span>{d.w}</span></p>
+              <ul>
+                {d.ex.map(([name, sets, alt]) => (
+                  <li key={name}>
+                    <span className="sr-day__ex"><b>{name}</b><small>{s.busy} {alt}</small></span>
+                    <span className="sr-day__sets">{sets}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Targets / Good to know + retest */}
+        <div className="sr__foot">
+          <div className="sr-box">
+            <h4 className="sr__h">{s.targetsTitle}</h4>
+            <ul className="sr__plain">{s.targets.map((x) => <li key={x.b}><b>{x.b}</b> {x.t}</li>)}</ul>
+            <p className="sr__source">{s.targetsSource}</p>
+          </div>
+          <div className="sr-box">
+            <h4 className="sr__h">{s.knowTitle}</h4>
+            <ul className="sr__plain">{s.know.map((x) => <li key={x}>{x}</li>)}</ul>
+            <div className="sr-retest">
+              <p><span>{s.retestLabel}</span><strong>{s.retestDate}</strong></p>
+              <p className="sr-retest__t">{s.retestText}</p>
+            </div>
+          </div>
+        </div>
+        <p className="sr__footnote">{s.footnote}</p>
+      </motion.div>
     </div>
   );
 }
