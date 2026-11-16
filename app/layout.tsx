@@ -1,4 +1,4 @@
-﻿import type { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: "Truepose",
   description: "A quick check shows each member what to work on first, even without a trainer.",
-  icons: { icon: "/assets/favicon.svg" },
+  icons: { icon: "/assets/logo-mark-dark.png" },
   openGraph: {
     type: "website",
     siteName: "Truepose",
@@ -27,16 +27,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f141b",
+  themeColor: "#121412",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
 };
 
 /* ?copy=client hides every line that is not in the client brief (see COPY-REVIEW.md) */
-/* ?accent=corporate|neon|green (or #corporate, #neon, #green) shows alternative palettes for comparison */
-/* Same switches also work as #green / #client-copy (for hosts that strip query strings) */
-const clientCopyScript = `try{var q=new URLSearchParams(location.search),h=location.hash,d=document.documentElement;if(q.get("copy")==="client"||h==="#client-copy")d.classList.add("client-copy");var a=q.get("accent")||h.slice(1);if(a==="green"||a==="neon"||a==="corporate")d.classList.add("accent-"+a)}catch(e){}`;
+/* Also works as #client-copy (for hosts that strip query strings) */
+const clientCopyScript = `try{var q=new URLSearchParams(location.search),h=location.hash,d=document.documentElement;if(q.get("copy")==="client"||h==="#client-copy")d.classList.add("client-copy")}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

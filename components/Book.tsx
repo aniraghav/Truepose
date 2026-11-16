@@ -1,13 +1,10 @@
 "use client";
 
-import { forwardRef, useEffect, useRef, useState, type FormEvent } from "react";
+import { forwardRef, useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { copy, FORM_ENDPOINT, EMAIL } from "@/lib/content";
+import { copy, FORM_ENDPOINT } from "@/lib/content";
 import { CTA } from "./ui";
 
-gsap.registerPlugin(ScrollTrigger);
 const ease = [0.2, 0.8, 0.2, 1] as const;
 type Status = "idle" | "sending" | "ok" | "err";
 
@@ -97,34 +94,6 @@ export const Book = forwardRef<HTMLElement>(function Book(_, ref) {
     </section>
   );
 });
-
-/* Footer: the wordmark rises out of the page as you reach the end (GSAP scrub) */
-export function Footer() {
-  const ref = useRef<HTMLElement>(null);
-  useEffect(() => {
-    if (!ref.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".footer__big span", { yPercent: 55 }, {
-        yPercent: 0, ease: "none",
-        scrollTrigger: { trigger: ref.current, start: "top bottom", end: "bottom bottom", scrub: true },
-      });
-    }, ref);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <footer className="footer" ref={ref}>
-      <div className="wrap">
-        <p className="footer__line">
-          {copy.footer.items.map((t) => <span key={t}>{t}</span>)}
-          <a href={`mailto:${EMAIL}`} data-scramble>{EMAIL}</a>
-        </p>
-        <p className="footer__legal">{copy.footer.legal}</p>
-      </div>
-      <div className="footer__big" aria-hidden="true"><span>Truepose</span></div>
-    </footer>
-  );
-}
 
 export function StickyCTA({ visible }: { visible: boolean }) {
   return (

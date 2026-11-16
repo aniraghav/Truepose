@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { copy } from "@/lib/content";
-import { LogoMark, Icon } from "./ui";
+import { LogoMark } from "./ui";
 import { accent, cssVar } from "@/lib/theme";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -107,48 +107,6 @@ function Metrics() {
   );
 }
 
-/* ---------- Why gyms use it: sticky cards stack; earlier cards sink back (GSAP ScrollTrigger) ---------- */
-export function Why() {
-  const list = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    if (!list.current || reduced()) return;
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".stack__card");
-      cards.forEach((card, i) => {
-        const next = cards[i + 1];
-        if (!next) return;
-        gsap.to(card, {
-          scale: 0.92 + i * 0.015,
-          filter: "brightness(0.55)",
-          ease: "none",
-          scrollTrigger: { trigger: next, start: "top bottom", end: "top 30%", scrub: true },
-        });
-      });
-    }, list);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section className="section" id="why" aria-labelledby="why-title">
-      <div className="wrap">
-        <h2 className="h2" data-decrypt id="why-title">{copy.why.heading}</h2>
-        <ul className="stack" ref={list}>
-          {copy.why.points.map((p, i) => (
-            <li className={`stack__card stack__card--${i}`} key={i} style={{ ["--i" as string]: i }}>
-              <div className="stack__top">
-                <span className="stack__num" aria-hidden="true">0{i + 1}</span>
-                <span className="stack__arrow" aria-hidden="true"><Icon name="arrow" /></span>
-              </div>
-              <p className="stack__text">{p}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
 /* ---------- What we measure: words light up as you scroll (GSAP scrub) ---------- */
 export function Measure() {
   const ref = useRef<HTMLParagraphElement>(null);
@@ -192,46 +150,6 @@ export function Claims() {
         <ul className="claims">
           {copy.claims.points.map((p) => <li key={p}>{p}</li>)}
         </ul>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- FAQ: animated accordion ---------- */
-export function Faq() {
-  const [open, setOpen] = useState(-1);
-  /* Height changes shift everything below, so refresh ScrollTrigger positions */
-  useEffect(() => { const t = setTimeout(() => ScrollTrigger.refresh(), 400); return () => clearTimeout(t); }, [open]);
-
-  return (
-    <section className="section" id="faq" aria-labelledby="faq-title">
-      <div className="wrap split">
-        <h2 className="h2" data-decrypt id="faq-title">{copy.faq.heading}</h2>
-        <div className="faq">
-          {copy.faq.items.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div className={`faq__item ${isOpen ? "is-open" : ""}`} key={f.q}>
-                <h3>
-                  <button type="button" id={`faq-q${i}`} aria-expanded={isOpen} aria-controls={`faq-a${i}`}
-                    onClick={() => setOpen(isOpen ? -1 : i)}>
-                    <span>{f.q}</span>
-                    <span className="faq__icon"><Icon name="plus" /></span>
-                  </button>
-                </h3>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div id={`faq-a${i}`} role="region" aria-labelledby={`faq-q${i}`} className="faq__a"
-                      initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }}
-                      transition={{ duration: 0.35, ease }}>
-                      <p>{f.a}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </div>
       </div>
     </section>
   );
