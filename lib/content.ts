@@ -65,11 +65,6 @@ export const copy = {
     /* Sample member report */
     sample: {
       tag: "Sample report",
-      greeting: "Hi Priya, here's your",
-      greetingHl: "starting point.",
-      sub: "Whatever your goal, get strong on the way there.",
-      meta: ["Checked on 16 Nov 2026", "Goal: Get stronger", "Trains 3 days a week"],
-
       glanceTitle: "Your plan at a glance",
       glance: [
         { k: "Training days", v: "3 a week" },
@@ -106,63 +101,6 @@ export const copy = {
         },
       ],
 
-      startTitle: "Where to start",
-      start: [
-        { b: "Right ankle:", t: "calf stretch against a wall, knee straight then bent. 3 holds of 30 s, right side first, on training days." },
-        { b: "Right leg balance:", t: "stand on one leg while brushing your teeth. 3 × 30 s." },
-        { b: "Leg strength:", t: "already built into every session below." },
-      ],
-      whyTitle: "Why this plan",
-      why: [
-        "Full body 3 times a week suits someone getting back into training.",
-        "Each muscle is worked at least twice a week, so you build strength steadily.",
-        "Heavier sets of 6 to 8 reps build strength. Start lighter and add weight slowly.",
-      ],
-
-      weekTitle: "Your week",
-      busy: "If busy:",
-      days: [
-        { d: "Day 1", w: "Mon", ex: [
-          ["Goblet squat", "2 × 6 to 8", "leg press"],
-          ["Dumbbell bench press", "2 × 6 to 8", "chest press machine"],
-          ["Seated cable row", "2 × 6 to 8", "one arm dumbbell row"],
-          ["Dumbbell shoulder press", "2 × 6 to 8", "shoulder press machine"],
-          ["Dumbbell curl", "1 × 6 to 8", "cable curl"],
-          ["Plank", "1 × 20 to 30 s", "dead bug on a mat"],
-        ] },
-        { d: "Day 2", w: "Wed", ex: [
-          ["Leg press", "2 × 6 to 8", "goblet squat"],
-          ["Chest press machine", "2 × 6 to 8", "push up on a bench"],
-          ["Lat pulldown", "2 × 6 to 8", "seated cable row"],
-          ["Lateral raise", "2 × 6 to 8", "cable lateral raise"],
-          ["Cable triceps pushdown", "1 × 6 to 8", "bench dips"],
-          ["Dead bug", "1 × 8 each side", "plank"],
-        ] },
-        { d: "Day 3", w: "Fri", ex: [
-          ["Romanian deadlift", "2 × 6 to 8", "leg curl machine"],
-          ["Incline dumbbell press", "2 × 6 to 8", "chest press machine"],
-          ["One arm dumbbell row", "2 × 6 to 8", "lat pulldown"],
-          ["Machine shoulder press", "2 × 6 to 8", "dumbbell shoulder press"],
-          ["Hammer curl", "1 × 6 to 8", "cable curl"],
-          ["Side plank", "1 × 20 s each side", "plank"],
-        ] },
-      ],
-
-      targetsTitle: "Your weekly targets",
-      targets: [
-        { b: "Legs, chest, back, shoulders:", t: "3 times a week, 6 sets in total each." },
-        { b: "Arms and core:", t: "3 times a week, 3 sets in total each." },
-        { b: "Cardio:", t: "1 to 2 easy sessions, like a brisk walk or cycle." },
-      ],
-      targetsSource: "Based on ACSM guidance for beginners, WHO physical activity guidelines and training frequency research.",
-      knowTitle: "Good to know",
-      know: [
-        "Start each lift with a weight you could lift about 12 times, and learn the movement first.",
-        "Stop any exercise that causes pain, and tell your trainer.",
-      ],
-      retestLabel: "Your retest",
-      retestDate: "14 Dec 2026",
-      retestText: "We'll repeat the check and show you what improved.",
     },
   },
 

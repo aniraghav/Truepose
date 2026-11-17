@@ -56,7 +56,6 @@ const HeroPhoto = forwardRef<HTMLElement>(function HeroPhoto(_, ref) {
           srcSet="/assets/hero-run-960.webp 960w, /assets/hero-run-1218.webp 1218w" sizes="(min-width: 900px) 66vw, 100vw"
           width={1218} height={864} alt="" fetchPriority="high" decoding="async" />
         <i className="phero__shade" />
-        <i className="phero__sweep" />{/* hidden by CSS for reduced motion */}
       </motion.div>
     </section>
   );
