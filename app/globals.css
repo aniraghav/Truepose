@@ -584,7 +584,7 @@ html.is-loading, html.is-loading body { overflow: hidden; }
 }
 .phero__l1 { color: var(--text); }
 .phero__l2 { color: var(--neon); }
-.phero__line { margin: 24px 0 0; max-width: 34ch; font-size: clamp(1.1rem, 2.2vw, 1.3rem); color: var(--muted); }
+.phero__line { margin: 24px 0 0; white-space: pre-line; font-size: clamp(1.1rem, 2.2vw, 1.3rem); color: var(--muted); }
 .phero__media { position: relative; height: clamp(260px, 76vw, 460px); margin-top: 8px; }
 .phero__img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 56% 50%; }
 .phero__shade { position: absolute; inset: 0; pointer-events: none;

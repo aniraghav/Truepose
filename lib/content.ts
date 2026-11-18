@@ -34,7 +34,7 @@ export const copy = {
     /* Headline: "From posture to plan in minutes." (lead in white, highlight in green) */
     lead: "From posture to plan",
     highlight: "in minutes.",
-    line: "A quick check for every member: measured posture, a clear report, and a plan to start with.",
+    line: "A quick check for every member:\nmeasured posture, a clear report,\nand a plan to start with.", // shown on three lines
     cta: "Book a free assessment",
     secondary: "How it works",
     facts: {
@@ -51,9 +51,9 @@ export const copy = {
   how: {
     heading: "How it works",
     steps: [
-      { title: "Check:", text: "stand in front of a phone for a quick posture scan, then a few simple tests." },
-      { title: "Measure:", text: "posture and movement, both sides." },
-      { title: "Report:", text: "the member keeps it and knows where to start." },
+      { title: "Check:", text: "Stand in front of a phone for a quick posture scan, then a few simple tests." },
+      { title: "Measure:", text: "Posture and movement, both sides." },
+      { title: "Report:", text: "The member keeps it and knows where to start." },
     ],
   },
 
