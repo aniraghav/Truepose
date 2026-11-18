@@ -31,10 +31,10 @@ export const copy = {
 
   hero: {
     eyebrow: { text: "Clarity for every member.", extra: true } as Extra,
-    lead: "Most members never get a trainer.",
-    main: "We give every one of them a",
-    highlight: "starting point.",
-    line: "A quick check shows each member what to work on first, even without a trainer.",
+    /* Headline: "From posture to plan in minutes." (lead in white, highlight in green) */
+    lead: "From posture to plan",
+    highlight: "in minutes.",
+    line: "A quick check for every member: measured posture, a clear report, and a plan to start with.",
     cta: "Book a free assessment",
     secondary: "How it works",
     facts: {
@@ -51,8 +51,8 @@ export const copy = {
   how: {
     heading: "How it works",
     steps: [
-      { title: "Check:", text: "a few simple tests, guided on a phone." },
-      { title: "Measure:", text: "how they move, both sides." },
+      { title: "Check:", text: "stand in front of a phone for a quick posture scan, then a few simple tests." },
+      { title: "Measure:", text: "posture and movement, both sides." },
       { title: "Report:", text: "the member keeps it and knows where to start." },
     ],
   },
@@ -116,8 +116,8 @@ export const copy = {
 
   measure: {
     heading: "What we measure",
-    sentence: "We measure flexibility and mobility through a few simple exercises.",
-    highlight: ["flexibility", "mobility"],
+    sentence: "We measure posture, flexibility and mobility through a few simple exercises.",
+    highlight: ["posture", "flexibility", "mobility"],
   },
 
   claims: {
@@ -134,7 +134,7 @@ export const copy = {
     items: [
       { q: "How long does it take?", a: "A few minutes per member." },
       { q: "Who runs the check?", a: "Our team, or your staff after a short walkthrough." },
-      { q: "Is anyone filmed?", a: "No. Nothing is filmed or recorded." },
+      { q: "Is anyone filmed?", a: "No. Nothing is filmed or recorded.", hidden: true }, // hidden for now (client request)
       { q: "Who sees the results?", a: "The member and your gym. We never sell anyone's data." },
       { q: "Do members need to install an app?", a: "No. It runs in the phone's browser." },
       { q: "Is this medical advice?", a: "No. It measures movement. For pain, see a physiotherapist." },

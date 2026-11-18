@@ -33,7 +33,7 @@ const HeroPhoto = forwardRef<HTMLElement>(function HeroPhoto(_, ref) {
         <div className="phero__copy">
           <h1 className="phero__title">
             <span className="phmask"><motion.span className="phero__l1" {...rise(0.05)}>{h.lead}</motion.span></span>{" "}
-            <span className="phmask"><motion.span className="phero__l2" {...rise(0.2)}>{h.main} {h.highlight}</motion.span></span>
+            <span className="phmask"><motion.span className="phero__l2" {...rise(0.2)}>{h.highlight}</motion.span></span>
           </h1>
           <motion.p className="phero__line" {...fade(0.45)}>{h.line}</motion.p>
           <motion.div className="phero__actions" {...fade(0.55)}>

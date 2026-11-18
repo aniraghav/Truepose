@@ -21,4 +21,4 @@ To preview the page with **only your original text**, open it with `?copy=client
 
 The sample member report in "What your member gets" uses the text of your Truepose sample report.
 
-Page title and share preview use your text: "Truepose" and "A quick check shows each member what to work on first, even without a trainer."
+Page title and share preview use your text: "Truepose" and "A quick check for every member: measured posture, a clear report, and a plan to start with."

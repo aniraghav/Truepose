@@ -29,13 +29,13 @@ const SITE = "https://truepose.ai"; // update if the domain changes
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: "Truepose",
-  description: "A quick check shows each member what to work on first, even without a trainer.",
+  description: "A quick check for every member: measured posture, a clear report, and a plan to start with.",
   icons: { icon: "/assets/logo-mark-dark.png" },
   openGraph: {
     type: "website",
     siteName: "Truepose",
     title: "Truepose",
-    description: "Most members never get a trainer. We give every one of them a starting point.",
+    description: "From posture to plan in minutes.",
     url: SITE,
     images: [{ url: "/assets/og-image.png", width: 1200, height: 630 }],
   },

@@ -176,7 +176,7 @@ function FaqD4() {
         <h2 className="tpfaq__title" data-decrypt id="faq-title">{copy.faq.heading}</h2>
         <div className="tpfaq__rule" />
         <ul className="tpfaq__list">
-          {copy.faq.items.map((f, i) => {
+          {copy.faq.items.filter((f) => !("hidden" in f && f.hidden)).map((f, i) => {
             const isOpen = open === i;
             return (
               <li key={i} className={`tpfaq__item ${isOpen ? "is-open" : ""}`}>
