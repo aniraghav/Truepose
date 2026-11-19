@@ -11,7 +11,7 @@ To preview the page with **only your original text**, open it with `?copy=client
 | Number band under the hero | 3 steps · 1 page · 4 weeks to a retest · 3 members free | Facts already in the brief, repeated as a moving band |
 | Above "Try it at your gym" | Free. At your gym. | Repeats the offer just before the form |
 | After the form is sent | Thank you. We'll call you soon. | Confirms the booking went through |
-| If the form fails | That didn't go through. Please email anisha@truepose.ai | Gives a fallback so no lead is lost |
+| If the form fails | That didn't go through. Please email contact@truepose.ai | Gives a fallback so no lead is lost |
 | FAQ section heading | FAQ | The brief names the section but gives no heading |
 | Menu button (phones and tablets) | Menu | Label for the full screen menu |
 | Keyboard users only | Skip to content | Accessibility; only shown when tabbing |

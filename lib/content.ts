@@ -13,7 +13,7 @@ export type IconName = "arrow" | "down" | "clock" | "browser" | "repeat" | "chec
    Empty = demo mode: the form shows success and logs the data to the console. */
 export const FORM_ENDPOINT = "";
 
-export const EMAIL = "anisha@truepose.ai";
+export const EMAIL = "contact@truepose.ai";
 
 export const copy = {
   nav: {
