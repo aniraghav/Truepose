@@ -611,13 +611,14 @@ html.is-loading, html.is-loading body { overflow: hidden; }
 /* Number ticker */
 .tptick { overflow: hidden; padding-block: clamp(28px, 5vw, 56px); border-block: 1px solid var(--line); background: var(--bg); }
 .tptick__row { display: flex; width: max-content; animation: tptick 38s linear infinite; }
-.tptick__row--rev { animation-direction: reverse; animation-duration: 44s; }
 .tptick__set { display: flex; flex: none; }
 .tptick__set span {
   padding-right: .55em; white-space: nowrap; text-transform: uppercase; color: var(--text);
   font: 700 clamp(3rem, 9.5vw, 8rem)/.98 var(--font-display), sans-serif; font-variation-settings: "wdth" 62;
 }
-.tptick__set b { color: var(--neon); font-weight: inherit; }
+.tptick__set b { color: var(--neon); font-weight: inherit; margin-right: .22em; }
+.tptick__set span { display: inline-flex; align-items: center; }
+.tptick__dot { display: inline-block; width: .16em; height: .16em; margin-left: .45em; border-radius: 50%; background: var(--text); flex: none; }
 @keyframes tptick { to { transform: translateX(-50%); } }
 
 /* How it works: folded corner step cards */
