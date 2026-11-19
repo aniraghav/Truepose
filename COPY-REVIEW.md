@@ -8,7 +8,6 @@ To preview the page with **only your original text**, open it with `?copy=client
 | Where | Proposed text | Why |
 |---|---|---|
 | Under the hero, 2 quick facts | A few minutes per member · 4 weeks to a retest | Answers an owner's first questions at a glance (taken from your FAQ) |
-| Number band under the hero | 3 steps · 1 page · 4 weeks to a retest · 3 members free | Facts already in the brief, repeated as a moving band |
 | Above "Try it at your gym" | Free. At your gym. | Repeats the offer just before the form |
 | After the form is sent | Thank you. We'll call you soon. | Confirms the booking went through |
 | If the form fails | That didn't go through. Please email contact@truepose.ai | Gives a fallback so no lead is lost |

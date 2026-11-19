@@ -94,30 +94,6 @@ function PreloaderD4({ onReveal }: { onReveal: () => void }) {
   );
 }
 
-/* ---------- Number ticker (facts from the brief, one scrolling row) ---------- */
-const TICKS = [
-  { n: "3", t: "steps" },
-  { n: "1", t: "page" },
-  { n: "4", t: "weeks to a retest" },
-  { n: "3", t: "members free" },
-];
-function Ticker() {
-  return (
-    <section className="tptick" data-extra aria-label="Truepose in numbers">
-      <div className="tptick__row">
-        {/* Two identical sets so the loop is seamless; the second is hidden from screen readers */}
-        {[0, 1].map((k) => (
-          <div className="tptick__set" key={k} aria-hidden={k === 1 ? true : undefined}>
-            {TICKS.map((t, i) => (
-              <span key={i}><b>{t.n}</b> {t.t}<i className="tptick__dot" aria-hidden="true" /></span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* ---------- Why gyms use it: staggered headline + tilted cards ---------- */
 function Spark() {
   return (
@@ -242,7 +218,6 @@ export default function Site() {
             <Header />
             <main id="main">
               <HeroPhoto ref={heroRef} />
-              <Ticker />
               <HowItWorks />
               <Report />
               <WhyD4 />
