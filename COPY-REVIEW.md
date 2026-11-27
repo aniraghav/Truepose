@@ -9,8 +9,8 @@ To preview the page with **only your original text**, open it with `?copy=client
 |---|---|---|
 | Under the hero, 2 quick facts | A few minutes per member · 4 weeks to a retest | Answers an owner's first questions at a glance (taken from your FAQ) |
 | Above "Try it at your gym" | Free. At your gym. | Repeats the offer just before the form |
-| After the form is sent | Thank you. We'll call you soon. | Confirms the booking went through |
-| If the form fails | That didn't go through. Please email contact@truepose.ai | Gives a fallback so no lead is lost |
+| After the form is sent | Thanks, we'll be in touch. | Confirms the booking went through |
+| If the form fails | Sorry, that didn't go through. Please email contact@truepose.ai. | Gives a fallback so no lead is lost |
 | FAQ section heading | FAQ | The brief names the section but gives no heading |
 | Menu button (phones and tablets) | Menu | Label for the full screen menu |
 | Keyboard users only | Skip to content | Accessibility; only shown when tabbing |

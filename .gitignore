@@ -3,3 +3,9 @@ node_modules
 out
 dist
 tsconfig.tsbuildinfo
+
+# Local environment files (secrets). Only the empty example is committed.
+.env
+.env*.local
+.env.*
+!.env.example
