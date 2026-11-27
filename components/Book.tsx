@@ -2,7 +2,8 @@
 
 import { forwardRef, useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { copy, FORM_ENDPOINT } from "@/lib/content";
+import { copy } from "@/lib/content";
+import { NAME_MAX, NAME_MIN, normalisePhone, stripFormula } from "@/lib/booking";
 import { CTA } from "./ui";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
@@ -14,38 +15,50 @@ export const Book = forwardRef<HTMLElement>(function Book(_, ref) {
   const [status, setStatus] = useState<Status>("idle");
   const [invalid, setInvalid] = useState<Record<string, boolean>>({});
 
+  const [errMsg, setErrMsg] = useState("");
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = formRef.current;
-    if (!form) return;
+    if (!form || status === "sending") return;
     const get = (name: string) => form.elements.namedItem(name) as HTMLInputElement | null;
-    if (get("company_site")?.value) return; // bot
+    const val = (name: string) => get(name)?.value.trim() ?? "";
 
+    // Quick checks in the browser; the server checks again and has the final say.
     const bad: Record<string, boolean> = {};
-    for (const fd of b.fields) {
-      const el = get(fd.name);
-      if (!el || !el.value.trim() || !el.checkValidity()) bad[fd.name] = true;
+    for (const n of ["name", "gym"]) {
+      const len = stripFormula(val(n)).length;
+      if (len < NAME_MIN || len > NAME_MAX) bad[n] = true;
     }
+    if (!normalisePhone(val("phone"))) bad.phone = true;
+    if (!get("consent")?.checked) bad.consent = true;
     setInvalid(bad);
-    const first = b.fields.find((fd) => bad[fd.name]);
-    if (first) { get(first.name)?.focus(); return; }
-
-    const data: Record<string, string> = {};
-    for (const fd of b.fields) data[fd.name] = get(fd.name)?.value.trim() ?? "";
-    data.page = window.location.href;
-    data.submitted_at = new Date().toISOString();
+    const first = ["name", "gym", "phone", "consent"].find((n) => bad[n]);
+    if (first) { setErrMsg(""); setStatus("idle"); get(first)?.focus(); return; }
 
     setStatus("sending");
+    setErrMsg("");
     try {
-      if (FORM_ENDPOINT) {
-        const res = await fetch(FORM_ENDPOINT, { method: "POST", headers: { Accept: "application/json" }, body: new URLSearchParams(data) });
-        if (!res.ok) throw new Error(String(res.status));
+      const res = await fetch("/api/book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: val("name"), gym: val("gym"), phone: val("phone"),
+          consent: true, company_site: get("company_site")?.value ?? "",
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; field?: string; error?: string } | null;
+      if (res.ok && data?.ok) { setStatus("ok"); return; }
+      // 400 and 429 carry a plain message meant for the visitor; anything else gets the email fallback.
+      if ((res.status === 400 || res.status === 413 || res.status === 429) && data?.error) {
+        if (data.field) { setInvalid({ [data.field]: true }); get(data.field)?.focus(); }
+        setErrMsg(data.error);
       } else {
-        console.info("[Truepose demo mode] submission:", data);
-        await new Promise((r) => setTimeout(r, 600));
+        setErrMsg(b.err);
       }
-      setStatus("ok");
+      setStatus("err");
     } catch {
+      setErrMsg(b.err);
       setStatus("err");
     }
   };
@@ -69,14 +82,20 @@ export const Book = forwardRef<HTMLElement>(function Book(_, ref) {
                     <label htmlFor={fd.id}>{fd.label}</label>
                     <input id={fd.id} name={fd.name} type={fd.type} autoComplete={fd.autoComplete}
                       inputMode={"inputMode" in fd ? fd.inputMode : undefined}
-                      pattern={"pattern" in fd ? fd.pattern : undefined} required
+                      maxLength={fd.name === "phone" ? 20 : NAME_MAX} required
                       aria-invalid={invalid[fd.name] ? true : undefined}
                       onInput={() => { if (invalid[fd.name]) setInvalid((s) => ({ ...s, [fd.name]: false })); }} />
                   </div>
                 ))}
+                <label className="consent" htmlFor="f-consent">
+                  <input id="f-consent" name="consent" type="checkbox" required
+                    aria-invalid={invalid.consent ? true : undefined}
+                    onChange={() => { if (invalid.consent) setInvalid((s) => ({ ...s, consent: false })); }} />
+                  <span>{b.consent}</span>
+                </label>
                 <input className="hp" type="text" name="company_site" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                 <CTA type="submit" block className={status === "sending" ? "is-sending" : ""}>{b.cta}</CTA>
-                <p className="form__status" role="status" aria-live="polite">{status === "err" ? b.err : ""}</p>
+                <p className="form__status" role="status" aria-live="polite">{status === "err" ? errMsg : ""}</p>
               </motion.form>
             ) : (
               <motion.div key="ok" className="form form--ok" role="status"

@@ -404,6 +404,10 @@ em { font-style: normal; }
 .field input:hover { border-color: var(--faint); }
 .field input:focus { outline: none; border-color: var(--neon); }
 .field input[aria-invalid="true"] { border-color: var(--error); }
+.consent { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; font-size: .9375rem; line-height: 1.45; color: var(--muted); cursor: pointer; }
+.consent input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--neon); cursor: pointer; }
+.consent input:focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
+.consent input[aria-invalid="true"] { outline: 2px solid var(--error); outline-offset: 2px; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .form .btn { margin-top: 8px; min-height: 58px; }
 .form__status { margin: 0; min-height: 1.4em; font-size: .9375rem; color: var(--error); }

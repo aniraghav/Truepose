@@ -9,10 +9,6 @@
 export type Extra = { text: string; extra?: boolean };
 export type IconName = "arrow" | "down" | "clock" | "browser" | "repeat" | "check" | "plus";
 
-/* Paste the form endpoint here once the client decides (Formspree or Google Apps Script /exec URL).
-   Empty = demo mode: the form shows success and logs the data to the console. */
-export const FORM_ENDPOINT = "";
-
 export const EMAIL = "contact@truepose.ai";
 
 export const copy = {
@@ -151,11 +147,12 @@ export const copy = {
     fields: [
       { id: "f-name", name: "name", label: "Name", type: "text", autoComplete: "name" },
       { id: "f-gym", name: "gym", label: "Gym", type: "text", autoComplete: "organization" },
-      { id: "f-phone", name: "phone", label: "Phone", type: "tel", autoComplete: "tel", inputMode: "tel" as const, pattern: "[0-9+() ]{7,20}" },
+      { id: "f-phone", name: "phone", label: "Phone", type: "tel", autoComplete: "tel", inputMode: "tel" as const },
     ],
     cta: "Book a free assessment",
-    ok: "Thank you. We'll call you soon.",            // extra copy, pending approval
-    err: `That didn't go through. Please email ${EMAIL}`, // extra copy, pending approval
+    consent: "I agree to Truepose contacting me about a free assessment. We use your details only for this.",
+    ok: "Thanks, we'll be in touch.",
+    err: `Sorry, that didn't go through. Please email ${EMAIL}.`,
   },
 
   footer: {
